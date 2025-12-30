@@ -25,17 +25,17 @@ const galleryData = {
         caption: "Embarquement à l'Aéroport de Rome",
       },
       {
-        src: "https://via.placeholder.com/400x300?text=Auberge+Targu",
+        src: "assets/img/J1/hotel roumanie.jpg",
         alt: "Auberge Targu Neamt",
         caption: "Auberge de Targu Neamt",
       },
       {
-        src: "https://via.placeholder.com/400x300?text=Arrivée+auberge",
+        src: "assets/img/J1/Auberge arrivée.jpg",
         alt: "Arrivée auberge",
         caption: "Arrivée à l'auberge",
       },
       {
-        src: "https://via.placeholder.com/400x300?text=Repas+auberge",
+        src: "assets/img/J1/manger.jpg",
         alt: "Repas auberge",
         caption: "Repas à l'auberge",
       },
@@ -46,20 +46,43 @@ const galleryData = {
     description:
       "Visite du lycée roumain, rencontre avec les correspondants, et découverte de la maison de l'écrivain Ion Greangá",
     images: [
-      { src: "https://via.placeholder.com/400x300?text=Lycée", alt: "Entrée lycée", caption: "Découverte du lycée" },
+      { src: "assets/img/J1/lycee roumain.jpg", alt: "Entrée lycée", caption: "Découverte du lycée" },
       {
-        src: "https://via.placeholder.com/400x300?text=Classe",
+        src: "assets/img/J1/plaque.jpg",
         alt: "Photo classe",
         caption: "Photo de classe avec les correspondants",
       },
-      { src: "https://via.placeholder.com/400x300?text=Accueil", alt: "Accueil", caption: "Accueil par la proviseure" },
       {
-        src: "https://via.placeholder.com/400x300?text=Maison+écrivain",
+        src: "assets/img/J1/photo de classe².jpg",
+        alt: "Photo classe",
+        caption: "Photo de classe avec les correspondants",
+      },
+      
+      { src: "assets/img/J1/lycee profs.jpg", alt: "Accueil", caption: "Accueil par la proviseure" },
+      { src: "assets/img/J1/classe groupes salle.jpg", alt: "Accueil", caption: "Accueil par la proviseure" },
+
+      {
+        src: "assets/img/J1/groupe classe maison.jpg",
         alt: "Maison écrivain",
         caption: "Maison de l'écrivain Ion GREANGÁ",
       },
       {
-        src: "https://via.placeholder.com/400x300?text=Musée",
+        src: "assets/img/J1/ecrivain.jpg",
+        alt: "Maison écrivain",
+        caption: "Maison de l'écrivain Ion GREANGÁ",
+      },
+      {
+        src: "assets/img/J1/visite maison ecrivain.jpg",
+        alt: "Maison écrivain",
+        caption: "Maison de l'écrivain Ion GREANGÁ",
+      },
+      {
+        src: "assets/img/J1/musee tradition.jpg",
+        alt: "Musée",
+        caption: "Musée sur la région et ses traditions",
+      },
+      {
+        src: "assets/img/J1/musee traditionnel.jpg",
         alt: "Musée",
         caption: "Musée sur la région et ses traditions",
       },
@@ -69,27 +92,36 @@ const galleryData = {
     title: "Jour 2 - Citadelle de Neamț",
     description: "Visite de la magnifique citadelle de Neamț, exploration de l'histoire et des traditions roumaines",
     images: [
-      { src: "https://via.placeholder.com/400x300?text=Citadelle", alt: "Citadelle", caption: "Citadelle de Neamț" },
+      { src: "assets/img/J2/chateau ensemble2.jpg", alt: "Citadelle", caption: "Citadelle de Neamț" },
+
       {
-        src: "https://via.placeholder.com/400x300?text=Arrivée",
-        alt: "Arrivée citadelle",
-        caption: "Arrivée à la Citadelle",
+        type: "video",
+        src: "https://github.com/triscroumanie/site/blob/main/assets/video/vid%C3%A9o_1.mp4?raw=true",
+        poster: "assets/img/vignette_video_j2.png",
+        alt: "Vidéo citadelle",
+        caption: "Arrivée à la \"NEAMŢ CITADEL\"",
       },
       {
-        src: "https://via.placeholder.com/400x300?text=Groupe",
+        src: "assets/img/J2/chateau.jpg",
         alt: "Groupe",
         caption: "Groupe arrivant à la citadelle",
       },
       {
-        src: "https://via.placeholder.com/400x300?text=Histoire",
+        src: "assets/img/J2/matheo.jpg",
         alt: "Histoire",
-        caption: "Explications de l'histoire",
+        caption: "Explications de l'histoire de la citadelle",
       },
       {
-        src: "https://via.placeholder.com/400x300?text=Traditions",
+        src: "assets/img/J2/piece.jpg",
+        alt: "Intérieur",
+        caption: "Intérieur de la citadelle",
+      },
+      {
+        src: "assets/img/J2/tenue.jpg",
         alt: "Traditions",
         caption: "Tenues traditionnelles",
       },
+      { src: "assets/img/J2/livres.jpg", alt: "Livres", caption: "Livres à la citadelle" },
     ],
   },
   day3: {
@@ -157,15 +189,41 @@ function openDay(dayId) {
   gallery.innerHTML = ""
 
   day.images.forEach((img, index) => {
-    const imgElement = document.createElement("img")
-    imgElement.src = img.src
-    imgElement.alt = img.alt
-    imgElement.className = "gallery-image"
-    imgElement.onclick = (e) => {
-      e.stopPropagation()
-      openLightbox(day.images, index)
+    if (img.type === "video") {
+      const wrapper = document.createElement("div")
+      wrapper.className = "video-thumb-wrapper"
+
+      const thumb = document.createElement("img")
+      thumb.src = img.poster || "/placeholder.svg"
+      thumb.alt = img.alt || "Vidéo"
+      thumb.className = "gallery-image video-thumb"
+
+      const play = document.createElement("span")
+      play.className = "play-icon"
+
+      wrapper.appendChild(thumb)
+      wrapper.appendChild(play)
+      wrapper.onclick = (e) => {
+        e.stopPropagation()
+        openLightbox(day.images, index)
+      }
+      gallery.appendChild(wrapper)
+    } else {
+      const thumb = document.createElement("img")
+      thumb.src = img.src
+      thumb.alt = img.alt
+      thumb.className = "gallery-image"
+      // apply optional rotation class on thumbnail
+      if (img.rotate) {
+        const rotClass = `rot-${img.rotate}`
+        thumb.classList.add(rotClass)
+      }
+      thumb.onclick = (e) => {
+        e.stopPropagation()
+        openLightbox(day.images, index)
+      }
+      gallery.appendChild(thumb)
     }
-    gallery.appendChild(imgElement)
   })
 
   document.getElementById("galleryModal").style.display = "block"
@@ -185,14 +243,47 @@ function openLightbox(images, index) {
 }
 
 function closeLightbox() {
+  const videoEl = document.getElementById("lightboxVideo")
+  if (videoEl) {
+    try { videoEl.pause() } catch (e) {}
+    videoEl.src = ""
+  }
   document.getElementById("lightbox").style.display = "none"
 }
 
 function updateLightbox() {
-  const img = currentImages[currentImageIndex]
-  document.getElementById("lightboxImage").src = img.src
-  document.getElementById("lightboxImage").alt = img.alt
-  document.getElementById("lightboxCaption").textContent = img.caption
+  const item = currentImages[currentImageIndex]
+  const imgEl = document.getElementById("lightboxImage")
+  const videoEl = document.getElementById("lightboxVideo")
+  const captionEl = document.getElementById("lightboxCaption")
+  if (item.type === "video") {
+    if (imgEl) imgEl.style.display = "none"
+    if (videoEl) {
+      videoEl.style.display = "block"
+      videoEl.src = item.src
+      videoEl.alt = item.alt || ""
+      try { videoEl.currentTime = 0 } catch (e) {}
+      videoEl.play().catch(() => {})
+    }
+  } else {
+    if (videoEl) {
+      try { videoEl.pause() } catch (e) {}
+      videoEl.src = ""
+      videoEl.style.display = "none"
+    }
+    if (imgEl) {
+      imgEl.style.display = "block"
+      imgEl.src = item.src
+      imgEl.alt = item.alt || ""
+      // remove any rotation classes then apply if present
+      imgEl.classList.remove("rot-90","rot-180","rot-270")
+      if (item.rotate) {
+        const rotClass = `rot-${item.rotate}`
+        imgEl.classList.add(rotClass)
+      }
+    }
+  }
+  if (captionEl) captionEl.textContent = item.caption || ""
 }
 
 function nextImage() {
@@ -225,3 +316,13 @@ document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") closeLightbox()
   }
 })
+
+// Expose functions to global scope for inline `onclick` handlers
+try {
+  window.openDay = openDay
+  window.closeGallery = closeGallery
+  window.openLightbox = openLightbox
+  window.closeLightbox = closeLightbox
+  window.nextImage = nextImage
+  window.prevImage = prevImage
+} catch (e) {}

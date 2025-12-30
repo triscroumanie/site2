@@ -247,6 +247,60 @@ body {
   transform: scale(1.05);
 }
 
+/* Rotation utility classes for images */
+.rot-90 { transform-origin: 50% 50%; transform: rotate(90deg); transition: transform 0.3s; }
+.rot-90:hover { transform: rotate(90deg) scale(1.05); }
+.rot-180 { transform-origin: 50% 50%; transform: rotate(180deg); transition: transform 0.3s; }
+.rot-180:hover { transform: rotate(180deg) scale(1.05); }
+.rot-270 { transform-origin: 50% 50%; transform: rotate(270deg); transition: transform 0.3s; }
+.rot-270:hover { transform: rotate(270deg) scale(1.05); }
+
+/* Video thumbnail wrapper and play icon */
+.video-thumb-wrapper {
+  position: relative;
+}
+
+.video-thumb-wrapper img.gallery-image {
+  display: block;
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.play-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 56px;
+  height: 56px;
+  background: rgba(0, 0, 0, 0.45);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.15s, background 0.15s;
+  z-index: 2;
+}
+
+.play-icon::after {
+  content: "";
+  display: block;
+  width: 0;
+  height: 0;
+  border-left: 18px solid white;
+  border-top: 12px solid transparent;
+  border-bottom: 12px solid transparent;
+  margin-left: 3px;
+}
+
+.video-thumb-wrapper:hover .play-icon {
+  transform: translate(-50%, -50%) scale(1.05);
+  background: rgba(0, 0, 0, 0.6);
+}
+
 /* Lightbox */
 .lightbox {
   display: none;
